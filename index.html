@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biblioteca General</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;1,300&family=JetBrains+Mono:wght@300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink:      #1C1917;
+    --paper:    #F7F3ED;
+    --paper-2:  #EFE9DF;
+    --prussian: #2D5D7B;
+    --gold:     #C9A84C;
+    --muted:    #7A6F65;
+    --cream:    #FAF8F4;
+  }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 300;
+    min-height: 100vh;
+  }
+
+  header {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 3.5rem 2rem 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(255,255,255,0.03) 28px, rgba(255,255,255,0.03) 29px);
+    pointer-events: none;
+  }
+  .header-ornament { font-family:'Playfair Display',serif; font-size:.75rem; letter-spacing:.35em; text-transform:uppercase; color:var(--gold); margin-bottom:.75rem; }
+  header h1 { font-family:'Playfair Display',serif; font-size:clamp(2.2rem,6vw,4rem); font-weight:400; line-height:1.1; color:var(--paper); }
+  header h1 em { font-style:italic; color:var(--gold); }
+  header p { margin-top:.85rem; font-size:.95rem; color:rgba(247,243,237,0.55); font-style:italic; max-width:38ch; margin-left:auto; margin-right:auto; }
+
+  main { max-width:1100px; margin:0 auto; padding:3.5rem 1.5rem 5rem; }
+
+  .catalog-intro { display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:1rem; margin-bottom:2.5rem; padding-bottom:1rem; border-bottom:1px solid var(--paper-2); }
+  .catalog-intro h2 { font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:400; color:var(--prussian); }
+  .catalog-count { font-size:.75rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); }
+
+  /* CATALOG CARDS */
+  .catalog { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px,1fr)); gap:1.75rem; }
+
+  .card {
+    position: relative;
+    background: var(--cream);
+    border: 1px solid var(--paper-2);
+    padding: 1.5rem 1.5rem 1.25rem;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform .2s, box-shadow .2s, border-color .2s;
+    box-shadow: 2px 3px 12px rgba(28,25,23,0.05);
+  }
+  .card::after {
+    /* perforación estilo ficha de biblioteca */
+    content: '';
+    position: absolute;
+    left: 1.4rem;
+    top: 1.4rem;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--paper);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.15);
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: var(--prussian);
+    box-shadow: 4px 10px 24px rgba(28,25,23,0.12);
+  }
+  .card-ficha {
+    font-family:'JetBrains Mono', monospace;
+    font-size: .7rem;
+    color: var(--gold);
+    letter-spacing: .05em;
+    margin-bottom: 1.1rem;
+    padding-left: 1.6rem;
+  }
+  .card-name { font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:700; color:var(--ink); margin-bottom:.4rem; }
+  .card-tagline { font-size:.85rem; color:var(--muted); font-style:italic; line-height:1.5; margin-bottom:1.1rem; min-height:2.6em; }
+  .card-enter { font-size:.75rem; letter-spacing:.12em; text-transform:uppercase; color:var(--prussian); display:flex; align-items:center; gap:.4rem; border-top:1px solid var(--paper-2); padding-top:.75rem; }
+  .card:hover .card-enter { color:var(--gold); }
+  .card-enter .arrow { transition: transform .2s; }
+  .card:hover .card-enter .arrow { transform: translateX(4px); }
+
+  /* AGREGAR TU BIBLIOTECA */
+  .add-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 1px dashed var(--muted);
+    background: transparent;
+    padding: 1.5rem;
+    color: var(--muted);
+    font-style: italic;
+    font-size: .85rem;
+    min-height: 100%;
+  }
+  .add-card strong { display:block; font-family:'Playfair Display',serif; font-style:normal; font-size:1rem; color:var(--prussian); margin-bottom:.4rem; }
+
+  footer { text-align:center; padding:2.5rem 1.5rem; color:var(--muted); font-size:.8rem; font-style:italic; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-ornament">— Catálogo Compartido —</div>
+  <h1>La <em>Biblioteca</em> General</h1>
+  <p>Un estante para cada uno · un catálogo para todos</p>
+</header>
+
+<main>
+  <div class="catalog-intro">
+    <h2>Bibliotecas del catálogo</h2>
+    <div class="catalog-count" id="catalog-count"></div>
+  </div>
+
+  <div class="catalog" id="catalog"></div>
+</main>
+
+<footer>
+  Cada biblioteca vive en su propio estante — hacé clic para entrar a leer.
+</footer>
+
+<script>
+  // ── ACÁ SE AGREGAN LAS BIBLIOTECAS DE CADA AMIGX ──
+  // Sumá un objeto por persona. "url" puede ser un link externo (otro repo/GitHub Pages)
+  // o una ruta relativa si guardás su carpeta dentro de este mismo repo (ej: "./juan/index.html").
+  // Para sumar un amigo: duplicá la carpeta "nombre-amigo", cambiá PERSONA
+  // adentro de su index.html, y agregá una línea acá con la ruta a esa carpeta.
+  const friends = [
+    {
+      name: "Fiona",
+      tagline: "Libros que me marcaron · palabras que me quedaron.",
+      url: "https://fionamclou.github.io/biblioteca/"
+    },
+    // {
+    //   name: "Nombre de tu amigx",
+    //   tagline: "Una frase corta sobre su estante.",
+    //   url: "./nombre-amigo/index.html"   ← misma carpeta, solo cambiás el nombre
+    // },
+  ];
+
+  const catalog = document.getElementById('catalog');
+  document.getElementById('catalog-count').textContent =
+    friends.length + (friends.length === 1 ? ' biblioteca' : ' bibliotecas');
+
+  catalog.innerHTML = friends.map((f, i) => `
+    <a class="card" href="${f.url}" target="_blank" rel="noopener">
+      <div class="card-ficha">Ficha N.º ${String(i + 1).padStart(3, '0')}</div>
+      <div class="card-name">${f.name}</div>
+      <div class="card-tagline">${f.tagline || ''}</div>
+      <div class="card-enter">Entrar a la biblioteca <span class="arrow">→</span></div>
+    </a>
+  `).join('') + `
+    <div class="card add-card">
+      <strong>¿Tu biblioteca falta acá?</strong>
+      Copiá la plantilla, armá tu estante y pedí que te sumen al catálogo.
+    </div>
+  `;
+</script>
+
+</body>
+</html>

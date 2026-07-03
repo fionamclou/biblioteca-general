@@ -113,6 +113,8 @@
   }
   .add-card strong { display:block; font-family:'Playfair Display',serif; font-style:normal; font-size:1rem; color:var(--prussian); margin-bottom:.4rem; }
 
+  .card-avatar { width:44px; height:44px; border-radius:50%; object-fit:cover; float:right; border:2px solid var(--gold); margin-left:.75rem; }
+ 
   footer { text-align:center; padding:2.5rem 1.5rem; color:var(--muted); font-size:.8rem; font-style:italic; }
 </style>
 </head>
@@ -159,7 +161,8 @@
 
    {  name: "Sofi",
       tagline: "La frase Sofi.",
-      url: "./sofi/index.html"
+      url: "./sofi/index.html",
+      avatar: "./sofi/foto-perfil.jpg"
     },
 
    {  name: "Alan",
@@ -191,6 +194,7 @@
   catalog.innerHTML = friends.map((f, i) => `
     <a class="card" href="${f.url}" target="_blank" rel="noopener">
       <div class="card-ficha">Ficha N.º ${String(i + 1).padStart(3, '0')}</div>
+      ${f.avatar ? `<img class="card-avatar" src="${f.avatar}" alt="Foto de perfil de ${f.name}">` : ''}
       <div class="card-name">${f.name}</div>
       <div class="card-tagline">${f.tagline || ''}</div>
       <div class="card-enter">Entrar a la biblioteca <span class="arrow">→</span></div>
